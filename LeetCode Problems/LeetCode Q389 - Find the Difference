@@ -1,0 +1,17 @@
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        letters = {}
+        
+        for i in s:
+            if (i in letters):
+                letters[i] = letters[i] + 1
+            else:
+                letters[i] = 1
+        
+        for i in t:
+            if (i in letters):
+                letters[i] = letters[i] - 1
+            else:
+                return i
+        
+        return min(letters, key = letters.get)
