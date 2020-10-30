@@ -1,0 +1,23 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if (len(s) != len(t)):
+            return False
+            
+        alphabet = {}
+        
+        for i in range(len(s)):
+            if (s[i] in alphabet):
+                alphabet[s[i]] = alphabet[s[i]] + 1
+            else:
+                alphabet[s[i]] = 1
+                
+            if (t[i] in alphabet):
+                alphabet[t[i]] = alphabet[t[i]] - 1
+            else:
+                alphabet[t[i]] = -1
+        
+        for i in alphabet:
+            if (alphabet[i] != 0):
+                return False
+        
+        return True
