@@ -5,6 +5,7 @@ fileOpen = open("SAVED.GAM", encoding = "latin1")
 f = fileOpen.read()
 print(f)
 encodedF = bytearray(f, "latin1") #Holds array of ints
+print(encodedF)
 
 #Put values in respective offsets
 for i in range(600):
