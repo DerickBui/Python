@@ -10,6 +10,23 @@ encodedF = bytearray(f, "latin1") #Holds array of ints
 for i in range(600):
   print(str(i) + ". " + str(encodedF[i]))
 
+#This function formats hex in little endian
+def littleEndianTime(value):
+  value = hex(value)
+  if (len(value) == 5):
+    bit1 = "0" + value[2]
+    bit2 = value[3] + value[4]
+    return [int(bit2, 16), int(bit1, 16)]
+  elif (len(value) == 6):
+    bit1 = value[2] + value[3]
+    bit2 = value[4] + value[5]
+    return [int(bit2, 16), int(bit1, 16)]
+  elif (len(value) == 3) or (len(value) == 4):
+    return [int(value, 0), 0]
+  else:
+    print("Not valid")
+    return
+
 #User choice menu when changing offsets
 userInput = 0
 while (userInput != "x"):
@@ -86,10 +103,31 @@ while (userInput != "x"):
             print("Invalid stat, cancel changes")
         else:
           print("Error in input, cancel changes")
-      #For offsets using decimals 1-9999, still having trouble on this
-      elif (addOffSet == 16) or (addOffSet == 18) or (addOffSet == 20):
-        print("Still working on")
-        pass
+      
+      #For offsets using decimals 1-999
+      elif (addOffSet == 16) or (addOffSet == 18):
+        setStat = input("Enter amount in stat (1-999): ")
+
+        if setStat.isnumeric():
+          setStat = int(setStat)
+        
+        twoValues = littleEndianTime(setStat)
+        encodedF[totalOffSet] = twoValues[0]
+        encodedF[totalOffSet + 1] = twoValues[1]
+        print("Character stat set")
+
+      #For offsets using decimals 1-9999
+      elif (addOffSet == 20):
+        setStat = input("Enter amount in stat (1-9999): ")
+
+        if setStat.isnumeric():
+          setStat = int(setStat)
+        
+        twoValues = littleEndianTime(setStat)
+        encodedF[totalOffSet] = twoValues[0]
+        encodedF[totalOffSet + 1] = twoValues[1]
+        print("Character stat set")
+
       else:
         print("Invalid stat offset, cancel changes")
   
@@ -113,7 +151,10 @@ while (userInput != "x"):
     setAmount = input("Set amount of items (0-9999): ")
     if setAmount.isnumeric():
       setAmount = int(setAmount) # Still working on this
-      print("Item Amount Changed, not really")
+      twoValues = littleEndianTime(setStat)
+      encodedF[totalOffSet] = twoValues[0]
+      encodedF[totalOffSet + 1] = twoValues[1]
+      print("Item Amount Changed")
     else:
       print("Error in input, cancel changes")
   
