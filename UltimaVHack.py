@@ -1,15 +1,9 @@
 #Open the SAVED.GAM hex file
-fileOpen = open("SAVED.GAM", encoding = "latin1")
+fileOpen = open("test.GAM", encoding = "latin1")
 
 #Reads, encode, and store file
 f = fileOpen.read()
-print(f)
 encodedF = bytearray(f, "latin1") #Holds array of ints
-print(encodedF)
-
-#Put values in respective offsets
-for i in range(600):
-  print(str(i) + ". " + str(encodedF[i]))
 
 #This function formats hex in little endian
 def littleEndianTime(value):
@@ -62,6 +56,7 @@ while (userInput != "x"):
   print("685. Spider Silk (0-99)")
   print("687. Black Pearl (0-99)")
   print("693. Party Amount (1-6)")
+  print("c. Check Values In Offsets")
   print("x. Exit")
   userInput = input("Type in offset you want to change in game (decimal): ")
 
@@ -160,7 +155,7 @@ while (userInput != "x"):
       print("Error in input, cancel changes")
   
   #One choice item (black badge)
-  elif(userInput == 687):
+  elif (userInput == 687):
     setAmount = ("Enter amount of the item (0-1):")
     if setAmount.isnumeric():
       if (setAmount == 0):
@@ -174,21 +169,19 @@ while (userInput != "x"):
     else:
       print("Error in input, cancel changes")
 
-  else: #For any offset not listed
+  #Check all values in offsets
+  elif (userInput != "c"):
+    for i in range(len(encodedF)):
+      print(str(i) + ". " + str(encodedF[i]))
+
+  elif (userInput != "x"): #For any offset not listed
     print("Invalid choice")
 
 fileOpen.close
 
-#For reverting back, for some reason, it doesn't match the previous format
-stringAgain = encodedF.decode("latin1")
+#Write file in byte form
+newFile = open("test.GAM", "wb+")
 
-print(stringAgain)
-
-newFile = open("test.GAM", "w+")
-
-newFile.write(stringAgain)
-
-for i in range(600):
-  print(str(i) + ". " + str(encodedF[i]))
+newFile.write(encodedF)
 
 newFile.close()
