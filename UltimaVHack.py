@@ -1,5 +1,8 @@
+#Derick Bui
+#016505734
+
 #Open the SAVED.GAM hex file
-fileOpen = open("test.GAM", encoding = "latin1")
+fileOpen = open("SAVED.GAM", encoding = "latin1")
 
 #Reads, encode, and store file
 f = fileOpen.read()
@@ -44,19 +47,20 @@ while (userInput != "x"):
   print("482. Saduj Stats")
   print("514. Gold (0-9999)")
   print("516. Food (0-9999)")
-  print("518. Keys (0-99)")
-  print("519. Gems (0-99)")
-  print("520. Torches (0-99)")
-  print("522. Margic Carpet (0-99)")
+  print("518. Keys (0-100)")
+  print("519. Gems (0-100)")
+  print("520. Torches (0-100)")
+  print("522. Margic Carpet (0-100)")
+  print("523. Skull Keys (0-100)")
   print("536. Black Badge (0-1)")
   print("576. Magic Axe (0-99)")
-  print("682. Sulphurous Ash (0-99)")
-  print("683. Ginseng (0-99)")
-  print("684. Garlic (0-99)")
-  print("685. Spider Silk (0-99)")
-  print("687. Black Pearl (0-99)")
+  print("682. Sulphurous Ash (0-100)")
+  print("683. Ginseng (0-100)")
+  print("684. Garlic (0-100)")
+  print("685. Spider Silk (0-100)")
+  print("687. Black Pearl (0-100)")
   print("693. Party Amount (1-6)")
-  print("c. Check Values In Offsets")
+  print("c. Check Values In Offsets (Shows 600 offsets)")
   print("x. Exit")
   userInput = input("Type in offset you want to change in game (decimal): ")
 
@@ -128,19 +132,17 @@ while (userInput != "x"):
         print("Invalid stat offset, cancel changes")
   
   #Change item numbers involving numbers 0-99
-  elif (userInput == 518) or (userInput == 519) or (userInput == 520) or (userInput == 522) or (userInput == 576) or (userInput == 682) or (userInput == 683) or (userInput == 684) or (userInput == 685) or (userInput == 518):
+  elif (userInput == 518) or (userInput == 519) or (userInput == 520) or (userInput == 522) or (userInput == 523) or (userInput == 576) or (userInput == 682) or (userInput == 683) or (userInput == 684) or (userInput == 685) or (userInput == 687):
     setAmount = input("Set amount of items (0-99): ")
     if setAmount.isnumeric():
       setAmount = int(setAmount)
-      print("Item Amount Changed")
+      if (setAmount >= 0) and (setAmount <= 100):
+        encodedF[userInput] = setAmount
+        print("Item amount changed")
+      else:
+        print("Number out of range, cancel changes")
     else:
       print("Error in input, cancel changes")
-
-    if (setAmount >= 0) and (setAmount <= 99):
-      encodedF[userInput] = setAmount
-      print("Item amount changed")
-    else:
-      print("Number out of range, cancel changes")
   
   #Change item number involving numbers 0-9999
   elif (userInput == 514) or (userInput == 516):
@@ -155,9 +157,10 @@ while (userInput != "x"):
       print("Error in input, cancel changes")
   
   #One choice item (black badge)
-  elif (userInput == 687):
-    setAmount = ("Enter amount of the item (0-1):")
+  elif (userInput == 536):
+    setAmount = input("Enter amount of the item (0-1): ")
     if setAmount.isnumeric():
+      setAmount = int(setAmount)
       if (setAmount == 0):
         encodedF[userInput] = 0
         print("Item Amount Changed")
@@ -169,9 +172,22 @@ while (userInput != "x"):
     else:
       print("Error in input, cancel changes")
 
-  #Check all values in offsets
-  elif (userInput != "c"):
-    for i in range(len(encodedF)):
+  #Selects how many people in the party
+  elif (userInput == 693):
+    partyAmount = input("How many in the party (1-6): ")
+    if partyAmount.isnumeric():
+      partyAmount = int(partyAmount)
+      if (partyAmount >= 1) or (partyAmount <= 6):
+        encodedF[userInput] = partyAmount
+      else:
+        print("Number out of range, cancel changes")
+
+    else:
+      print("Error in input, cancel changes")
+
+  #Check all values in offsets up to 600
+  elif (userInput == "c"):
+    for i in range(600):
       print(str(i) + ". " + str(encodedF[i]))
 
   elif (userInput != "x"): #For any offset not listed
@@ -180,7 +196,7 @@ while (userInput != "x"):
 fileOpen.close
 
 #Write file in byte form
-newFile = open("test.GAM", "wb+")
+newFile = open("SAVED.GAM", "wb+")
 
 newFile.write(encodedF)
 
