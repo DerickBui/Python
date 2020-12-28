@@ -10,13 +10,21 @@ def letterCounter(sentence):
 
   return orderedLetterDict
 
+def wordCounter(sentence):
+  words = sentence.split()
+
+  amount = len(words)
+
+  return amount
 
 def Main():
-  sentence = "AaBbCc"
+  sentence = "a a a a a. a"
 
   letterCount = letterCounter(sentence)
 
   for i in letterCount:
     print(i, " ", letterCount[i])
+
+  print("Amount of words: ", wordCounter(sentence))
 
 Main()
