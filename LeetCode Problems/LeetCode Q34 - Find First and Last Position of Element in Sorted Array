@@ -1,0 +1,36 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        pointer1 = -1
+        pointer2 = -1
+        
+        start = 0
+        end = len(nums) - 1
+        
+        flag = False
+        
+        while (start <= end):
+            mid = (end + start) // 2
+            
+            if (nums[mid] < target):
+                start = mid + 1
+            elif (nums[mid] > target):
+                end = mid - 1
+            elif (nums[mid] == target):
+                flag = True
+                pointer1 = mid
+                pointer2 = mid
+                break
+        
+        while (pointer1 > 0 and nums[pointer1] == target):
+                pointer1 -= 1
+
+        while (pointer2 < len(nums) - 1 and nums[pointer2] == target):
+            pointer2 += 1
+
+        if (flag):
+            if (nums[pointer1] != target):
+                pointer1 += 1
+            if (nums[pointer2] != target):
+                pointer2 -= 1
+        
+        return[pointer1,pointer2]
