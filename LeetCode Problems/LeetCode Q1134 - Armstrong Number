@@ -1,0 +1,19 @@
+class Solution:
+    def isArmstrong(self, n: int) -> bool:
+        power = 0
+        preservedNum = n
+        
+        while (preservedNum != 0):
+            power += 1
+            preservedNum = preservedNum // 10
+        
+        preservedNum = n
+        
+        total = 0
+        while (preservedNum != 0):
+            total += (preservedNum % 10) ** power
+            
+            preservedNum = preservedNum // 10
+            
+        print(total)
+        return n == total
