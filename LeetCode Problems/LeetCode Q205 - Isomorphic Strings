@@ -1,0 +1,14 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        myDictionary = {}
+        
+        for i in range(len(s)):
+            if s[i] in myDictionary:
+                if myDictionary[s[i]] != t[i]:
+                    return False
+            elif t[i] in myDictionary.values():
+                return False
+            else:
+                myDictionary[s[i]] = t[i]
+        
+        return True
