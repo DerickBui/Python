@@ -1,0 +1,24 @@
+class Solution:
+    def customSortString(self, order: str, str: str) -> str:
+        myDictionary = {}
+        
+        rank = 0
+        
+        for letter in order:
+            if letter not in myDictionary:
+                myDictionary[letter] = rank
+                rank += 1
+        
+        for letter in str:
+            if letter not in myDictionary:
+                myDictionary[letter] = rank
+                rank += 1
+        
+        splittedStr = list(str)
+        
+        for i in range(len(splittedStr)):
+            for j in range(i, len(splittedStr)):
+                if myDictionary[splittedStr[i]] > myDictionary[splittedStr[j]]:
+                    splittedStr[i],splittedStr[j] = splittedStr[j],splittedStr[i]
+        
+        return "".join(splittedStr)
