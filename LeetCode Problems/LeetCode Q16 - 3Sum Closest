@@ -1,0 +1,33 @@
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        closestSum = float('inf')
+        closestDifference = float('inf')
+        
+        nums.sort()
+        
+        i = 0
+        
+        while (i < (n-2)):
+            pointer1 = i + 1
+            pointer2 = n - 1
+            
+            while (pointer1 < pointer2):
+                tempSum = nums[i] + nums[pointer1] + nums[pointer2]
+                tempDifference = abs(target - tempSum)
+                
+                if (tempDifference < closestDifference):
+                    closestDifference = tempDifference
+                    closestSum = tempSum
+                
+                if (tempSum <= target):
+                    pointer1 += 1
+                else:
+                    pointer2 -= 1
+            
+            while ((i < (n-2)) and (nums[i] == nums[i+1])):
+                i += 1
+            
+            i += 1
+        
+        return closestSum
