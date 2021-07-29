@@ -1,0 +1,18 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        if (len(ransomNote) > len(magazine)):
+            return False
+        
+        letterAmount = [0] * 26
+
+        for i in ransomNote:
+            letterAmount[ord(i) - 97] += 1
+        
+        for i in magazine:
+            letterAmount[ord(i) - 97] -= 1
+        
+        for i in letterAmount:
+            if (i > 0):
+                return False
+        
+        return True
