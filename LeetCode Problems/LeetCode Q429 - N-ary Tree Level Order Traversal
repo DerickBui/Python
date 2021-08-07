@@ -1,0 +1,30 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        result = []
+        
+        queue = []
+        
+        if (root != None):
+            queue.append(root)
+        
+        while (len(queue) != 0):
+            layer = []
+            
+            for i in range(len(queue)):
+                current = queue.pop(0)
+                layer.append(current.val)
+                
+                for child in current.children:
+                    queue.append(child)
+                
+            result.append(layer)
+        
+        return result
