@@ -1,0 +1,26 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        result = []
+        dictionary = {}
+        
+        index = 0
+        for word in strs:
+            letterHash = [0]*26
+            for character in word:
+                letterHash[ord(character) - 97] += 1
+            
+            for i in range(len(letterHash)):
+                letterHash[i] = str(letterHash[i])
+            
+            letterHash = ".".join(letterHash)
+            print(letterHash)
+            
+            if (letterHash in dictionary):
+                result[dictionary[letterHash]].append(word)
+            else:
+                result.append([])
+                dictionary[letterHash] = index
+                index += 1
+                result[dictionary[letterHash]].append(word)
+        
+        return result
