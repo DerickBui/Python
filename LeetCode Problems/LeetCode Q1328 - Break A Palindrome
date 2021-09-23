@@ -1,0 +1,21 @@
+class Solution:
+    def breakPalindrome(self, palindrome: str) -> str:
+        if (len(palindrome) == 1):
+            return ""
+        
+        splittedPalindrome = list(palindrome)
+        pointer1 = 0
+        pointer2 = len(splittedPalindrome) - 1
+        
+        # Both pointers incrementing the palindrome
+        while (pointer1 < pointer2):
+            if ((splittedPalindrome[pointer1] == splittedPalindrome[pointer2]) and (splittedPalindrome[pointer1] != "a")):
+                splittedPalindrome[pointer1] = "a"
+                return "".join(splittedPalindrome)
+            
+            pointer1 += 1
+            pointer2 -= 1
+        
+        splittedPalindrome[-1] = "b"
+        
+        return "".join(splittedPalindrome)
