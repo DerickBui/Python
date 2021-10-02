@@ -1,0 +1,25 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if (x < 0):
+            return False
+        
+        singleDigitList = []
+        
+        while (x > 0):
+            singleDigitList.append(x % 10)
+            x = x // 10
+        
+        print(singleDigitList)
+        
+        pointer1 = 0
+        pointer2 = len(singleDigitList) - 1
+        
+        while (pointer1 < pointer2):
+            if (singleDigitList[pointer1] != singleDigitList[pointer2]):
+                return False
+            
+            pointer1 += 1
+            pointer2 -= 1
+            
+        
+        return True
