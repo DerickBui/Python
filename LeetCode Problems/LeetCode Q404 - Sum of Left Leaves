@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        total = 0
+        queue = [root]
+        
+        while (len(queue) != 0):
+            for i in range(len(queue)):
+                current = queue.pop(0)
+                if (current.left):
+                    if (current.left.left == None and current.left.right == None):
+                        total += current.left.val
+                    else:
+                        queue.append(current.left)
+                
+                if (current.right):
+                    queue.append(current.right)
+        
+        return total
+        
