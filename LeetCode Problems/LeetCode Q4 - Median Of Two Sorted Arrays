@@ -1,0 +1,35 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        length1 = len(nums1)
+        length2 = len(nums2)
+        totalLength = length1 + length2
+        
+        sortedArray = [0] * (totalLength)
+        
+        pointer = 0
+        pointerArr1 = 0
+        pointerArr2 = 0
+        
+        while ((pointerArr1 < length1) and (pointerArr2 < length2)):
+            if (nums1[pointerArr1] <= nums2[pointerArr2]):
+                sortedArray[pointer] = nums1[pointerArr1]
+                pointerArr1 += 1
+            else:
+                sortedArray[pointer] = nums2[pointerArr2]
+                pointerArr2 += 1
+            pointer += 1
+        
+        while (pointerArr1 < length1):
+            sortedArray[pointer] = nums1[pointerArr1]
+            pointerArr1 += 1
+            pointer += 1
+            
+        while (pointerArr2 < length2):
+            sortedArray[pointer] = nums2[pointerArr2]
+            pointerArr2 += 1
+            pointer += 1
+        
+        if (totalLength % 2 == 0):
+            return (sortedArray[(totalLength // 2) - 1] + sortedArray[totalLength // 2]) / 2
+        else:
+            return sortedArray[(totalLength // 2)]
