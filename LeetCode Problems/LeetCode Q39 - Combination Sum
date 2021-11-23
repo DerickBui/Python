@@ -1,0 +1,16 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.answers = []
+        pointer = 0
+        
+        def backTrack(remain, pointer, combination):
+            if (remain == 0):
+                self.answers.append(combination[:])
+            elif (remain > 0):
+                for i in range(pointer, len(candidates)):
+                    combination.append(candidates[i])
+                    backTrack(remain - candidates[i], i, combination)
+                    combination.pop(-1)
+        
+        backTrack(target, 0, [])
+        return self.answers
