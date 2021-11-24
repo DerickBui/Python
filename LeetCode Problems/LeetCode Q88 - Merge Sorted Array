@@ -1,0 +1,26 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        pointer1 = 0
+        pointer2 = 0
+        
+        while (m > 0 and n > 0):
+            if (nums1[pointer1] > nums2[pointer2]):
+                for i in range(len(nums1) - 1, pointer1, -1):
+                    nums1[i] = nums1[i-1]
+                nums1[pointer1] = nums2[pointer2]
+                pointer1 += 1
+                pointer2 += 1
+                n -= 1
+            else:
+                pointer1 += 1
+                m -= 1
+        
+        while (n > 0):
+            nums1[pointer1] = nums2[pointer2]
+            
+            pointer1 += 1
+            pointer2 += 1
+            n -= 1
