@@ -1,0 +1,29 @@
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        matrix = [[0 for j in range(n)] for i in range(n)]
+        
+        num = 1
+        
+        for layer in range(n // 2): # layer number
+            first = layer # first of respective layer
+            last = (n - 1) - first # last of respective layer
+            for i in range(first, last): # top layer
+                matrix[first][i] = num
+                num += 1
+            
+            for i in range(first, last): # right layer
+                matrix[i][last] = num
+                num += 1
+            
+            for i in range(last, first, -1): # bottom layer
+                matrix[last][i] = num
+                num += 1
+            
+            for i in range(last, first, -1): # left layer
+                matrix[i][first] = num
+                num += 1
+        
+        if (n % 2 != 0):
+            matrix[n // 2][n // 2] = n * n
+        
+        return matrix
